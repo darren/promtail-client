@@ -46,26 +46,26 @@ func NewClientJson(conf ClientConfig) (Client, error) {
 }
 
 func (c *clientJson) Debugf(format string, args ...interface{}) {
-	c.log(format, DEBUG, "Debug: ", args...)
+	c.log(format, DEBUG, args...)
 }
 
 func (c *clientJson) Infof(format string, args ...interface{}) {
-	c.log(format, INFO, "Info: ", args...)
+	c.log(format, INFO, args...)
 }
 
 func (c *clientJson) Warnf(format string, args ...interface{}) {
-	c.log(format, WARN, "Warn: ", args...)
+	c.log(format, WARN, args...)
 }
 
 func (c *clientJson) Errorf(format string, args ...interface{}) {
-	c.log(format, ERROR, "Error: ", args...)
+	c.log(format, ERROR, args...)
 }
 
-func (c *clientJson) log(format string, level LogLevel, prefix string, args ...interface{}) {
+func (c *clientJson) log(format string, level LogLevel, args ...interface{}) {
 	if (level >= c.config.SendLevel) || (level >= c.config.PrintLevel) {
 		c.entries <- &jsonLogEntry{
 			Ts:    time.Now(),
-			Line:  fmt.Sprintf(prefix+format, args...),
+			Line:  fmt.Sprintf(format, args...),
 			level: level,
 		}
 	}
